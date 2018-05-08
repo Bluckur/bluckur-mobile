@@ -11,6 +11,10 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)BluckurWalletPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -19,5 +23,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)BluckurWalletPage.xaml.cs">
       <DependentUpon>BluckurWalletPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)UILayer\" />
   </ItemGroup>
 </Project>
