@@ -3,6 +3,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="BluckurWallet.UILayer.HomePage"
+    xmlns:local="clr-namespace:BluckurWallet.UILayer"
     NavigationPage.HasNavigationBar="False">
-
 </TabbedPage>
