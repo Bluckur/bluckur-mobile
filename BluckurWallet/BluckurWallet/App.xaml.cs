@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BluckurWallet.UILayer;
+using Xamarin.Forms;
 
 namespace BluckurWallet
 {
@@ -8,7 +9,7 @@ namespace BluckurWallet
         {
             InitializeComponent();
 
-            MainPage = new BluckurWalletPage();
+            MainPage = new NavigationPage(new HomePage());
         }
 
         protected override void OnStart()
