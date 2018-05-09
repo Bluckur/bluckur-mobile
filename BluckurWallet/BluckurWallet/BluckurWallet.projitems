@@ -23,11 +23,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)BluckurWalletPage.xaml.cs">
       <DependentUpon>BluckurWalletPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\BlockchainExplorerPage.xaml.cs">
+      <DependentUpon>BlockchainExplorerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UILayer\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)UILayer\" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\BlockchainExplorerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
