@@ -39,11 +39,16 @@
       <DependentUpon>RestPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\QuizQuestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\QuizReply.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\RestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Domain\" />
   </ItemGroup>
 </Project>
