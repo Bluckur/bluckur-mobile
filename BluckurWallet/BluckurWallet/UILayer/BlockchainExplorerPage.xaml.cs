@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using BluckurWallet.ServiceLayer.Rest;
+using BluckurWallet.ServiceLayer;
+using BluckurWallet.Domain;
 
 namespace BluckurWallet.UILayer
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BlockchainExplorerPage : ContentPage
     {
+        BlockchainExplorer explorer;
+
         public BlockchainExplorerPage()
         {
             InitializeComponent();
+            explorer = new BlockchainExplorer();
+            
             SelectDay(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
         }
 
@@ -35,13 +41,19 @@ namespace BluckurWallet.UILayer
         private async void SelectDay(DateTime day)
         {
             lblDate.Text = "Date: " + day.ToString("dd-MM-yyyy");
-
-            // GET BLOCKS OF DAY
-            var blocks = new string[144];
-            await ShowBlocks(blocks, day);
+            
+            try
+            {
+                List<Block> blocks = await explorer.GetBlocksAsync(day);
+                await ShowBlocks(blocks);
+            }
+            catch (Exception exc)
+            {
+                await DisplayAlert("Error", exc.Message, "Ok");
+            }            
         }
 
-        private async Task ShowBlocks(object[] blocks, DateTime day)
+        private async Task ShowBlocks(ICollection<Block> blocks)
         {
             int row = 0;
             int column = 0;
@@ -52,16 +64,17 @@ namespace BluckurWallet.UILayer
 
             foreach (var block in blocks)
             {
-                DateTime time = day.AddMinutes(10 * row);
-
                 gridBlocks.RowDefinitions.Add(new RowDefinition()
                 {
                     Height = 40
                 });
 
+                DateTime blockTime = new DateTime(1970, 1, 1);
+                blockTime = blockTime.AddSeconds(block.Header.TimeStamp);
+
                 // Add time
                 Label label = new Label();
-                label.Text = time.ToString("HH:mm");
+                label.Text = blockTime.ToString("HH:mm");
                 label.VerticalTextAlignment = TextAlignment.Center;
                 label.HorizontalTextAlignment = TextAlignment.Center;
                 gridBlocks.Children.Add(label, 0, row);
@@ -69,9 +82,11 @@ namespace BluckurWallet.UILayer
                 // Add button
                 Button button = new Button();
                 button.Text = "Click me";
+                button.TextColor = Color.White;
+                button.BackgroundColor = Color.FromHex("e88506");
                 button.Clicked += async (sender, e) =>
                 {
-                    await DisplayAlert("Block", "There's no data to display yet.", "KThanks");
+                    await this.Navigation.PushAsync(new BlockPage(block));
                 };
                 gridBlocks.Children.Add(button, 1, row);
 

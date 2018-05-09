@@ -4,10 +4,10 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="BluckurWallet.UILayer.BlockchainExplorerPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="20" HorizontalOptions="Center">
             <Label x:Name="lblDate"
                    Text="Date:"/>
-            <Button Text="Select day" Clicked="PickDate_Clicked"/>
+            <Button Text="Select day" TextColor="White" BackgroundColor="#e88506" Clicked="PickDate_Clicked"/>
             <DatePicker x:Name="datePicker"
                         IsVisible="False" Date="{x:Static sys:DateTime.Now}"
                         DateSelected="DateSelected">

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BluckurWallet.UILayer.BlockPage">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" Padding="20">
+            <Label HorizontalTextAlignment="Center" Text="Give us some more time and we'll make this prettier."
+                HorizontalOptions="CenterAndExpand" />
+            <Label HorizontalTextAlignment="Center" Text="Transactions:"
+                HorizontalOptions="CenterAndExpand" />
+            <ScrollView>
+                <Grid x:Name="gridTransactions">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

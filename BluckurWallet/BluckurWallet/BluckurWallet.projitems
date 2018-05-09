@@ -30,12 +30,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Domain\Block.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Domain\BlockHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Domain\Transaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\BlockchainExplorer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UILayer\BlockchainExplorerPage.xaml.cs">
       <DependentUpon>BlockchainExplorerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\REST\RestConsumer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\REST\RestResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\BlockPage.xaml.cs">
+      <DependentUpon>BlockPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UILayer\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -49,10 +54,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\BlockchainExplorerPage.xaml">
-	  <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\RestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\BlockPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
