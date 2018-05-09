@@ -8,7 +8,7 @@
     <ContentPage Title="Quiz" Icon="ic_quiz.png">
         <ContentPage.Content>
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Button Text="Start quiz!" Clicked="btnStartQuiz_Clicked"></Button>
+                <Button Text="Start quiz!" Clicked="btnStartQuiz_Clicked" WidthRequest="200" TextColor="White" BackgroundColor="#e88506"></Button>
             </StackLayout>
         </ContentPage.Content>
     </ContentPage>

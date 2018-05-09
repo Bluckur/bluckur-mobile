@@ -4,9 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="BluckurWallet.UILayer.QuizPage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <StackLayout Padding="20, 20, 20, 20" VerticalOptions="Start" HorizontalOptions="Center">
             <Label Text="Question:" FontSize="Large"></Label>
             <Label Text="How old is Xamarin Forms?"></Label>
+            <Button x:Name="btnAnswer1" Text="This is the first answer!" TextColor="White" BackgroundColor="#e88506"></Button>
+            <Button x:Name="btnAnswer2" Text="This is the second answer!" TextColor="White" BackgroundColor="#e88506"></Button>
+            <Button x:Name="btnAnswer3" Text="This is the third answer!" TextColor="White" BackgroundColor="#e88506"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
