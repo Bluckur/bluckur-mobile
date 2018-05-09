@@ -94,6 +94,9 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="ExifLib">
+      <HintPath>..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -117,6 +120,21 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_explorer%402x.png" />
+    <BundleResource Include="Resources\ic_explorer%403x.png" />
+    <BundleResource Include="Resources\ic_generate_qr%402x.png" />
+    <BundleResource Include="Resources\ic_generate_qr%403x.png" />
+    <BundleResource Include="Resources\ic_help%402x.png" />
+    <BundleResource Include="Resources\ic_help%403x.png" />
+    <BundleResource Include="Resources\ic_quiz%402x.png" />
+    <BundleResource Include="Resources\ic_quiz%403x.png" />
+    <BundleResource Include="Resources\ic_settings%402x.png" />
+    <BundleResource Include="Resources\ic_settings%403x.png" />
+    <BundleResource Include="Resources\ic_shop%402x.png" />
+    <BundleResource Include="Resources\ic_shop%403x.png" />
+    <BundleResource Include="Resources\icon.png" />
   </ItemGroup>
   <Import Project="..\BluckurWallet\BluckurWallet.projitems" Label="Shared" Condition="Exists('..\BluckurWallet\BluckurWallet.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
