@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:BluckurWallet.UILayer"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BluckurWallet.UILayer.RestPage"
+             Title="REST Demo">
+    <!-- For development. Should be used as reference material for actual the actual wallet GUI. -->
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- GET -->
+            <Label Text="GET request"/>
+            <Entry x:Name="tbxUriGet"
+                   Placeholder="Uri"/>
+            <Button Text="GET" Clicked="Send_Clicked"/>
+            <Editor x:Name="tbxGetReponse"
+                    Text="" HeightRequest="128" MinimumHeightRequest="128"/>
+            
+            <!-- POST -->
+            <Label Text="POST request"/>
+            <Entry x:Name="tbxUriPost"
+                   Placeholder="Uri"/>
+            <Editor x:Name="tbxPostData"/>
+            <Button Text="POST" Clicked="Post_Clicked"/>
+            <Editor x:Name="tbxPostResponse"
+                    Text="" HeightRequest="128" MinimumHeightRequest="128"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
