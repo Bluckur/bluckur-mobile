@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\BlockchainExplorerPage.xaml">
+	  <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\RestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
