@@ -35,8 +35,8 @@ namespace BluckurWallet.ServiceLayer.Rest
         /// <exception cref="HttpRequestException"/>
         /// <exception cref="WebException"/>
         public async Task<RestResponse> GetAsync(Uri target)
-        {
-            var response = await client.GetAsync(target);
+		{
+			var response = await client.GetAsync(target);
             var jsonContent = await response.Content.ReadAsStringAsync();
 
             return new RestResponse(response, jsonContent);

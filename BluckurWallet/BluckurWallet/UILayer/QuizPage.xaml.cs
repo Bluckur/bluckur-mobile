@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using BluckurWallet.Domain;
 using BluckurWallet.ServiceLayer.Rest;
 using Newtonsoft.Json.Linq;
@@ -11,7 +12,7 @@ namespace BluckurWallet.UILayer
     public partial class QuizPage : ContentPage
 	{
         RestConsumer restConsumer;
-		readonly Uri baseUrl = new Uri("http://192.168.223.38:8080/Kwetter/api/Rest");
+		readonly Uri baseUrl = new Uri("http://10.10.100.50:8080/QuizApp/api/Rest/");
 		QuizQuestion currentQuestion;
 
         public QuizPage()
@@ -22,8 +23,8 @@ namespace BluckurWallet.UILayer
 
 			getNewQuestion();
         }
-
-        private async void getNewQuestion()
+        
+		private async void getNewQuestion()
 		{
 			try
 			{
@@ -68,7 +69,7 @@ namespace BluckurWallet.UILayer
 			}
             catch(Exception ex)
 			{
-				await DisplayAlert("Error", ex.Message, "OK");
+				await DisplayAlert("Error", "Oops, something went wrong", "OK");
 			}
 		}
 
@@ -83,6 +84,7 @@ namespace BluckurWallet.UILayer
                 string answer = senderButton.Text;
                 string publicKey = "Value";
 
+				Uri uri = new Uri(baseUrl, string.Format("isAnswerCorrect/{0}/{1}/{2}", currentQuestion.Id, answer, publicKey));
                 RestResponse response = await restConsumer.GetAsync(new Uri(baseUrl, string.Format("isAnswerCorrect/{0}/{1}/{2}", currentQuestion.Id, answer, publicKey)));
 
                 JObject json = response.JsonBody;
@@ -109,7 +111,7 @@ namespace BluckurWallet.UILayer
 			}
 			catch(Exception ex)
 			{
-				await DisplayAlert("Error", ex.Message, "OK");            
+				await DisplayAlert("Error", "Oops, something went wrong", "OK");            
 			}
         }
     }

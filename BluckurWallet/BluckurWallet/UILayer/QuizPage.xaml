@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout Padding="20, 20, 20, 20" VerticalOptions="Start" HorizontalOptions="Center">
             <Label Text="Question:" FontSize="Large" HorizontalOptions="Center"></Label>
-            <Label Margin="0, 0, 0, 10" x:Name="lblQuestion" Text="How old is Xamarin Forms?" HorizontalOptions="Center"></Label>
+            <Label Margin="0, 0, 0, 10" x:Name="lblQuestion" Text="Loading next question..." HorizontalOptions="Center"></Label>
             <StackLayout x:Name="buttonContainer">
                 
             </StackLayout>
