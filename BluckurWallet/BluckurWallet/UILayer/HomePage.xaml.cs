@@ -11,5 +11,13 @@ namespace BluckurWallet.UILayer
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Navigate to NewTransactionPage page.
+        /// </summary>
+        async void btnStartQuiz_Clicked(object sender, EventArgs e)
+        {
+            await this.Navigation.PushAsync(new QuizPage());
+        }
     }
 }
