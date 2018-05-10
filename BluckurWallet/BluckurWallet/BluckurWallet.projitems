@@ -19,6 +19,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\SetupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -41,14 +45,20 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Domain\QuizQuestion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Domain\QuizReply.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\SetupPage.xaml.cs">
+      <DependentUpon>SetupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\WalletData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\QRCodeUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\RestPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Domain\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Util\" />
   </ItemGroup>
 </Project>
