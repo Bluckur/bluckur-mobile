@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="BluckurWallet.UILayer.HelpPage">
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="Start" HorizontalOptions="Start">
+            <Grid>
+                <Label FontSize="Large" Text="Debug Info" Grid.Column="0"></Label>
+                <StackLayout Grid.Column="1" >
+                    <Button Text="Reset form" Clicked="btnResetForm_Click" TextColor="White" BackgroundColor="#d9534f" Grid.Column="1"></Button>
+                </StackLayout>
+            </Grid>
+            <Grid Margin="0, 15">
+                <Label Text="Private Key: " Grid.Column="0" Grid.Row="0"></Label>
+                <Entry x:Name="entPrivateKey" Placeholder="1234567890" Grid.Column="1" Grid.Row="0"></Entry>
+                <Label Text="Public Key: " Grid.Column="0" Grid.Row="1"></Label>
+                <Entry x:Name="entPublicKey" Placeholder="1234567890" Grid.Column="1" Grid.Row="1"></Entry>
+                <Label Text="Quiz Server IP: " Grid.Column="0" Grid.Row="2"></Label>
+                <Entry x:Name="entQuizServerIp" Placeholder="0.0.0.0" Grid.Column="1" Grid.Row="2"></Entry>
+            </Grid>
+            <Button Text="Save data" Clicked="btnSaveData_Click" TextColor="White" BackgroundColor="#e88506"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

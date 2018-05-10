@@ -23,6 +23,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\HelpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -50,6 +54,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Domain\WalletData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Util\QRCodeUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\RestPage.xaml">

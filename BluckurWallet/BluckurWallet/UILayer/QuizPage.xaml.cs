@@ -12,18 +12,49 @@ namespace BluckurWallet.UILayer
     public partial class QuizPage : ContentPage
 	{
         RestConsumer restConsumer;
-		readonly Uri baseUrl = new Uri("http://10.10.100.50:8080/QuizApp/api/Rest/");
+		Uri baseUrl;
 		QuizQuestion currentQuestion;
-
+        
         public QuizPage()
         {
             InitializeComponent();
-
+            
 			restConsumer = new RestConsumer();
-
+   
 			getNewQuestion();
         }
         
+        private async void getQuizServerIp()
+		{
+			string defaultIp = "10.10.100.50:8080";
+
+            try
+            {
+                object quizServerIpObj = null;
+
+                bool fetchedQuizServerIp = Application.Current.Properties.TryGetValue("quizip", out quizServerIpObj);
+
+				string quizServerIp = "";
+
+				if (fetchedQuizServerIp)
+				{
+					quizServerIp = quizServerIpObj.ToString();
+				}
+				else
+				{
+					Application.Current.Properties.Add(new KeyValuePair<string, object>("quizip", quizServerIp));
+					quizServerIp = defaultIp;
+				}
+
+				baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
+            }
+            catch (Exception ex)
+            {
+				await DisplayAlert("Error", string.Format("{0} - {1}", ex.GetType(), ex.Message), "OK");
+                baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
+            }
+		}
+
 		private async void getNewQuestion()
 		{
 			try

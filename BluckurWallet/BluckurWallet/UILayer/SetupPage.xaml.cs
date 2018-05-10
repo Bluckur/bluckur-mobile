@@ -67,5 +67,10 @@ namespace BluckurWallet.UILayer
                 await DisplayAlert("Error", "Oops, could not parse your wallet data.", "OK");
 			}
 		}
+
+		private void btnSkip_Click(object sender, EventArgs e)
+		{
+            Application.Current.MainPage = new NavigationPage(new HomePage());
+		}
     }
 }
