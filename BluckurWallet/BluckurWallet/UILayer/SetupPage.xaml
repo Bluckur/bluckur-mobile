@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="BluckurWallet.UILayer.SetupPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="Start" HorizontalOptions="Center">
+            <Image Source="icon.png" WidthRequest="50"></Image>
+            <Label Text="Welcome to Bløckør Møbilé!" FontSize="Large" Margin="0, 0, 0, 20"></Label>
+            <Label Text="Scan QR-Code to pair your device..." Margin="0, 0, 0, 10"></Label>
+            <Button Text="Scan QR-Code!" Clicked="btnScanQr_Click" WidthRequest="200" TextColor="White" BackgroundColor="#e88506"></Button>
+            <Button Margin="0, 50" Text="Skip setup (for debugging)" Clicked="btnSkip_Click" WidthRequest="200" TextColor="White" BackgroundColor="#d9534f"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

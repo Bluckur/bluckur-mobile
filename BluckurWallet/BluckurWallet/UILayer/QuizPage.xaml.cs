@@ -12,18 +12,62 @@ namespace BluckurWallet.UILayer
     public partial class QuizPage : ContentPage
 	{
         RestConsumer restConsumer;
-		readonly Uri baseUrl = new Uri("http://10.10.100.50:8080/QuizApp/api/Rest/");
+		Uri baseUrl;
+		String publicKey;
 		QuizQuestion currentQuestion;
-
+        
         public QuizPage()
         {
             InitializeComponent();
-
+            
 			restConsumer = new RestConsumer();
 
+			getStoredValues();
+   
 			getNewQuestion();
         }
         
+        /// <summary>
+        /// Fetch rest server ip and public key from storage.
+        /// </summary>
+        private async void getStoredValues()
+		{
+            string defaultIp = "10.10.100.50:8080";
+
+			publicKey = string.Empty;
+            baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
+
+            try
+            {
+				object quizServerIpObj = null;
+                object publicKeyObj = null;
+
+				bool fetchedQuizServerIp = Application.Current.Properties.TryGetValue("quizip", out quizServerIpObj);
+                bool fetchedPublicKey = Application.Current.Properties.TryGetValue("pubkey", out publicKeyObj);
+
+				string quizServerIp = "";
+
+				publicKey = fetchedPublicKey ? publicKeyObj.ToString() : "";
+
+				if (fetchedQuizServerIp)
+				{
+					quizServerIp = quizServerIpObj.ToString();
+				}
+				else
+				{
+					Application.Current.Properties.Add(new KeyValuePair<string, object>("quizip", defaultIp));
+
+					quizServerIp = defaultIp;
+				}
+
+				baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
+            }
+            catch (Exception ex)
+            {
+				await DisplayAlert("Error", string.Format("{0} - {1}", ex.GetType(), ex.Message), "OK");
+            }
+		}
+
 		private async void getNewQuestion()
 		{
 			try
