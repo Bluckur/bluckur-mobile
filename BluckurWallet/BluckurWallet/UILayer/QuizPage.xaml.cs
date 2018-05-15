@@ -13,6 +13,7 @@ namespace BluckurWallet.UILayer
 	{
         RestConsumer restConsumer;
 		Uri baseUrl;
+		String publicKey;
 		QuizQuestion currentQuestion;
         
         public QuizPage()
@@ -20,21 +21,33 @@ namespace BluckurWallet.UILayer
             InitializeComponent();
             
 			restConsumer = new RestConsumer();
+
+			getStoredValues();
    
 			getNewQuestion();
         }
         
-        private async void getQuizServerIp()
+        /// <summary>
+        /// Fetch rest server ip and public key from storage.
+        /// </summary>
+        private async void getStoredValues()
 		{
-			string defaultIp = "10.10.100.50:8080";
+            string defaultIp = "10.10.100.50:8080";
+
+			publicKey = string.Empty;
+            baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
 
             try
             {
-                object quizServerIpObj = null;
+				object quizServerIpObj = null;
+                object publicKeyObj = null;
 
-                bool fetchedQuizServerIp = Application.Current.Properties.TryGetValue("quizip", out quizServerIpObj);
+				bool fetchedQuizServerIp = Application.Current.Properties.TryGetValue("quizip", out quizServerIpObj);
+                bool fetchedPublicKey = Application.Current.Properties.TryGetValue("pubkey", out publicKeyObj);
 
 				string quizServerIp = "";
+
+				publicKey = fetchedPublicKey ? publicKeyObj.ToString() : "";
 
 				if (fetchedQuizServerIp)
 				{
@@ -42,7 +55,8 @@ namespace BluckurWallet.UILayer
 				}
 				else
 				{
-					Application.Current.Properties.Add(new KeyValuePair<string, object>("quizip", quizServerIp));
+					Application.Current.Properties.Add(new KeyValuePair<string, object>("quizip", defaultIp));
+
 					quizServerIp = defaultIp;
 				}
 
@@ -51,7 +65,6 @@ namespace BluckurWallet.UILayer
             catch (Exception ex)
             {
 				await DisplayAlert("Error", string.Format("{0} - {1}", ex.GetType(), ex.Message), "OK");
-                baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
             }
 		}
 

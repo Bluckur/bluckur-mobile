@@ -5,7 +5,7 @@
             <Grid>
                 <Label FontSize="Large" Text="Debug Info" Grid.Column="0"></Label>
                 <StackLayout Grid.Column="1" >
-                    <Button Text="Reset form" Clicked="btnResetForm_Click" TextColor="White" BackgroundColor="#d9534f" Grid.Column="1"></Button>
+                    <Button Text="Refresh" Clicked="btnResetForm_Click" TextColor="White" BackgroundColor="#d9534f" Grid.Column="1"></Button>
                 </StackLayout>
             </Grid>
             <Grid Margin="0, 15">

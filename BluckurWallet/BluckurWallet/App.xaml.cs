@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using BluckurWallet.Domain;
 using BluckurWallet.UILayer;
@@ -13,7 +14,7 @@ namespace BluckurWallet
         public App()
         {
 			InitializeComponent();
-                MainPage = new NavigationPage(new HomePage());  
+            MainPage = new NavigationPage(new HomePage());  
 
 			getWalletData();
 
@@ -35,8 +36,8 @@ namespace BluckurWallet
 				object publicKeyObj = null;
 				object privateKeyObj = null;
 
-				bool fetchedPublicKey = Application.Current.Properties.TryGetValue("pubkey", out publicKeyObj);
-                bool fetchedPrivateKey = Application.Current.Properties.TryGetValue("privkey", out publicKeyObj);
+				bool fetchedPublicKey = Application.Current.Properties.TryGetValue("pubKey", out publicKeyObj);
+				bool fetchedPrivateKey = Application.Current.Properties.TryGetValue("privKey", out privateKeyObj);
                 
 				if (!fetchedPublicKey || !fetchedPrivateKey)
 				{
