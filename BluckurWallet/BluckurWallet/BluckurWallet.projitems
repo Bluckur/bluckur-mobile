@@ -31,6 +31,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Domain\BlockHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Domain\Transaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\BlockchainExplorer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\REST\RestException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\TimeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UILayer\BlockchainExplorerPage.xaml.cs">
       <DependentUpon>BlockchainExplorerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
