@@ -9,7 +9,7 @@ namespace BluckurWallet.Domain
         [JsonProperty]
         public BlockHeader Header { get; set; }
 
-        [JsonProperty]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<Transaction> Transactions { get; set; }
 
         public Block()
