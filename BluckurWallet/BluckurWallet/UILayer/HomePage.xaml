@@ -22,13 +22,7 @@
         </ContentPage.Content>
     </ContentPage>
     
-    <ContentPage Title="Shop" Icon="ic_shop.png">
-        <ContentPage.Content>
-            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="TODO"></Label>
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
+    <local:ShowPage Title="Shop" Icon="ic_shop.png"/>
 
     <local:HelpPage Title="Help" Icon="ic_help.png"/>
     

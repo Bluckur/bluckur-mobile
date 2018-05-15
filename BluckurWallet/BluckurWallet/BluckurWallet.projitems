@@ -27,6 +27,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\ShowPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -56,6 +60,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Util\QRCodeUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UILayer\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\ShowPage.xaml.cs">
+      <DependentUpon>ShowPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
