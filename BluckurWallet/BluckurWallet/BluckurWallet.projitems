@@ -27,7 +27,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\ShowPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\ShopPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -61,8 +61,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)UILayer\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UILayer\ShowPage.xaml.cs">
-      <DependentUpon>ShowPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\ShopPage.xaml.cs">
+      <DependentUpon>ShopPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

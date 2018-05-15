@@ -22,7 +22,7 @@
         </ContentPage.Content>
     </ContentPage>
     
-    <local:ShowPage Title="Shop" Icon="ic_shop.png"/>
+    <local:ShopPage Title="Shop" Icon="ic_shop.png"/>
 
     <local:HelpPage Title="Help" Icon="ic_help.png"/>
     
