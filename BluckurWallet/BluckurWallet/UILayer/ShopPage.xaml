@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="BluckurWallet.UILayer.ShopPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="BluckurWallet.UILayer.ShopPage" 
+             BackgroundColor="#f3f3f3"><!--#f1f1f1-->
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Grid x:Name="gridShopItems" BackgroundColor="Gray">
+                <Grid x:Name="gridShopItems" Padding="10, 5">
                     
                 </Grid>
                 <Button Clicked="btnMoreItems_Click" Text="Load more items..." TextColor="White" BackgroundColor="#e88506"></Button>
