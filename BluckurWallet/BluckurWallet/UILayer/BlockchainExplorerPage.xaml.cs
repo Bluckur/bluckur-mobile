@@ -21,10 +21,8 @@ namespace BluckurWallet.UILayer
         {
             InitializeComponent();
             explorer = new BlockchainExplorer();
-            
-            SelectDay(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
         }
-
+        
         private void PickDate_Clicked(object sender, EventArgs e)
         {
             datePicker.Focus();
@@ -41,22 +39,21 @@ namespace BluckurWallet.UILayer
         private async void SelectDay(DateTime day)
         {
             lblDate.Text = "Date: " + day.ToString("dd-MM-yyyy");
-            
+
             try
             {
-                List<Block> blocks = await explorer.GetBlocksAsync(day);
+                LinkedList<Block> blocks = await explorer.GetBlocksAsync(day);
                 await ShowBlocks(blocks);
             }
-            catch (Exception exc)
+            catch (RestException exc)
             {
-                await DisplayAlert("Error", exc.Message, "Ok");
+                await DisplayAlert("Error", exc.InnerException.Message, "Ok");
             }            
         }
 
         private async Task ShowBlocks(ICollection<Block> blocks)
         {
             int row = 0;
-            int column = 0;
 
             gridBlocks.RowDefinitions.Clear();
             gridBlocks.Children.Clear();
