@@ -3,11 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="BluckurWallet.UILayer.BlockchainExplorerPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="BlockTemplate">
+                
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="20" HorizontalOptions="Center">
-            <Label x:Name="lblDate"
-                   Text="Date:"/>
-            <Button Text="Select day" TextColor="White" BackgroundColor="#e88506" Clicked="PickDate_Clicked"/>
+        <StackLayout Padding="0,0" HorizontalOptions="FillAndExpand">
+            <Button Text="Search" TextColor="White" BackgroundColor="#e88506" Clicked="Search_Clicked"/>
             <DatePicker x:Name="datePicker"
                         IsVisible="False" Date="{x:Static sys:DateTime.Now}"
                         DateSelected="DateSelected">
@@ -20,15 +25,18 @@
                     </sys:DateTime>
                 </DatePicker.MinimumDate>
             </DatePicker>
-            <Label Text="Blocks:"/>
-            <ScrollView>
-                <StackLayout>
-                    <Grid x:Name="gridBlocks" RowSpacing="1" ColumnSpacing="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
+
+            <Label Text="Blocks:" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+            <!-- Block scroll area -->
+            <ScrollView
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                BackgroundColor="#f3f3f3"
+                Padding="5">
+                <!-- Block card holder -->
+                <StackLayout x:Name="stackBlocks"
+                    Margin="0" Spacing="5" Padding="0"
+                    VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <!-- Cards -->
                 </StackLayout>
             </ScrollView>
         </StackLayout>

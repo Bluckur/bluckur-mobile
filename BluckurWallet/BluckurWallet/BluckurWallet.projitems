@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\REST\RestConsumer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ServiceLayer\REST\RestResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\BlockFrame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UILayer\BlockPage.xaml.cs">
       <DependentUpon>BlockPage.xaml</DependentUpon>
       <SubType>Code</SubType>
