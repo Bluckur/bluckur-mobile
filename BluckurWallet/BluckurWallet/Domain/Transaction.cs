@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using BluckurWallet.ServiceLayer;
+using Newtonsoft.Json;
 
 namespace BluckurWallet.Domain
 {
@@ -16,10 +15,24 @@ namespace BluckurWallet.Domain
 
         [JsonProperty]
         public string Recipient { get; set; }
-
-        // TODO: DateTime
+        
+        /// <summary>
+        /// Gets or sets the unix timestamp of this transaction.
+        /// </summary>
         [JsonProperty]
         public long TimeStamp { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="TimeStamp"/> as a formatted date time.
+        /// </summary>
+        [JsonIgnore]
+        public DateTime Time
+        {
+            get
+            {
+                return TimeStamp.ToDateTime();
+            }
+        }
 
         [JsonProperty]
         public string Type { get; set; }

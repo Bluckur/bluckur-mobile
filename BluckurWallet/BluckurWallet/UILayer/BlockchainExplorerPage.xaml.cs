@@ -23,59 +23,6 @@ namespace BluckurWallet.UILayer
             Clear();
 
             explorer = new BlockchainExplorer();
-
-            /*
-            #region TEST CODE
-            var testblocks = new List<Block> {
-                new Block()
-                {
-                    Header = new BlockHeader
-                    {
-                        BlockNumber = 1,
-                        Hash = "12345",
-                        PreviousHash = "abcde",
-                        TimeStamp = DateTime.Now.ToUnix()
-                    }
-                },
-                new Block()
-                {
-                    Header = new BlockHeader
-                    {
-                        BlockNumber = 1,
-                        Hash = "12345",
-                        PreviousHash = "abcde",
-                        TimeStamp = DateTime.Now.AddMinutes(10).ToUnix()
-                    },
-                    Transactions =
-                    {
-                        new Transaction
-                        {
-                            Sender = "Jeroen",
-                            Recipient = "Andere Jeroen",
-                            Amount = 1.5f,
-                            TimeStamp = DateTime.Now.AddDays(-1).ToUnix(),
-                            Type = "COIN"
-                        },
-                        new Transaction
-                        {
-                            Sender = "Andere Jeroen",
-                            Recipient = "Jeroen",
-                            Amount = 1.75f,
-                            TimeStamp = DateTime.Now.AddDays(-2).ToUnix(),
-                            Type = "COIN"
-                        }
-                    }
-                }
-            };
-
-            for (int i = 0; i < 2; i++)
-            {
-                testblocks.Add(testblocks[i]);
-            }
-            testblocks[0].Transactions = null;
-            ShowBlocks(testblocks);
-            #endregion
-            */
         }
 
         private void Clear()
@@ -194,7 +141,7 @@ namespace BluckurWallet.UILayer
             // Block time
             Label lblBlockTime = new Label
             {
-                Text = blockTime.ToString("dd-MM-yyyy"),
+                Text = blockTime.ToString("HH:mm"),
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 Margin = 0,
                 HorizontalTextAlignment = TextAlignment.Center,
@@ -204,7 +151,7 @@ namespace BluckurWallet.UILayer
 
             Label lblBlockDate = new Label
             {
-                Text = blockTime.ToString("HH:mm"),
+                Text = blockTime.ToString("dd-MM-yyyy"),
                 FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                 Margin = 0,
                 HorizontalTextAlignment = TextAlignment.Center,

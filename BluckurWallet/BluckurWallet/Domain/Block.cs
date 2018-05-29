@@ -12,9 +12,6 @@ namespace BluckurWallet.Domain
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<Transaction> Transactions { get; set; }
 
-        public Block()
-        {
-            Transactions = new List<Transaction>();
-        }
+        public Block() { }
     }
 }

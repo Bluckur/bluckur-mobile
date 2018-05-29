@@ -8,7 +8,7 @@ namespace BluckurWallet.Domain
         [JsonProperty]
         public long BlockNumber { get; set; }
 
-        [JsonProperty]
+        [JsonProperty("blockHash")]
         public string Hash { get; set; }
 
         [JsonProperty]

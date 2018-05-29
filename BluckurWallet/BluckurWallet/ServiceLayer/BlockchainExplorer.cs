@@ -218,11 +218,14 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                long unix = day.ToUnix();
-                string url = string.Format(address + endpoints["blocksByDate"],
-                    unix
+                day = new DateTime(day.Year, day.Month, day.Day);
+                var nextDay = day.AddDays(1).AddSeconds(-1);
+                
+                string url = string.Format(address + endpoints["blocksByPeriod"],
+                    day.ToUnix(),
+                    nextDay.ToUnix()
+                );
 
-                    );
                 RestResponse response = await consumer.GetAsync(new Uri(url));
 
                 JObject jResponse = response.JsonBody;
