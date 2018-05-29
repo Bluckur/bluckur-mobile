@@ -24,6 +24,7 @@ namespace BluckurWallet.UILayer
 
             explorer = new BlockchainExplorer();
 
+            /*
             #region TEST CODE
             var testblocks = new List<Block> {
                 new Block()
@@ -74,6 +75,7 @@ namespace BluckurWallet.UILayer
             testblocks[0].Transactions = null;
             ShowBlocks(testblocks);
             #endregion
+            */
         }
 
         private void Clear()
@@ -145,7 +147,7 @@ namespace BluckurWallet.UILayer
             // Card content
             StackLayout body = new StackLayout
             {
-                Padding = tZero,
+                Padding = new Thickness(6, 0),
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
@@ -218,7 +220,7 @@ namespace BluckurWallet.UILayer
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 HeightRequest = 25,
-                BackgroundColor = Color.FromRgb(211, 211, 211),
+                BackgroundColor = Color.FromRgb(235, 235, 235),
                 Text = block.Header.Hash
             };
 
@@ -291,6 +293,11 @@ namespace BluckurWallet.UILayer
             body.Children.Add(bottom);
 
             return frame;
+        }
+
+        private async Task LoadMore_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

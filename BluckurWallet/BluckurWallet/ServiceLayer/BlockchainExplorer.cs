@@ -18,7 +18,7 @@ namespace BluckurWallet.ServiceLayer
     public class BlockchainExplorer
     {
         // TODO: Configuration for endpoint (being worked on in another branch).
-        private static readonly string address = "http://silvermods.com/meekel/api/Rest/";
+        private static readonly string address = "http://localhost:3000/api/";
         private static readonly Uri endpoint = new Uri(address);
 
         private static readonly Dictionary<string, string> endpoints = new Dictionary<string, string>()
@@ -27,9 +27,9 @@ namespace BluckurWallet.ServiceLayer
             { "blockByNumber",              "block/bynumber/{0}" },
             { "nextBlock",                  "block/next/{0}" },
             { "previousBlock",              "block/previous/{0}" },
-            { "blocksByDate",               "block/date/{0}" },
-            { "blocksByPeriod",             "block/period/{0}/{1}" },
-            { "blocksByWallet",             "block/wallet/{0}" },
+            { "blocksByDate",               "blocks/date/{0}" },
+            { "blocksByPeriod",             "blocks/period/{0}/{1}" },
+            { "blocksByWallet",             "blocks/wallet/{0}" },
             { "nextBlocks",                 "blocks/next/{0}" },
             { "transactionsWithWallet",     "transactions/{0}" },
             { "transactionsFromWallet",     "transactions/from/{0}" },

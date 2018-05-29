@@ -33,10 +33,13 @@
                 BackgroundColor="#f3f3f3"
                 Padding="5">
                 <!-- Block card holder -->
-                <StackLayout x:Name="stackBlocks"
-                    Margin="0" Spacing="5" Padding="0"
+                <StackLayout>
+                    <StackLayout x:Name="stackBlocks"
+                    Margin="0" Spacing="7" Padding="2,0"
                     VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                    <!-- Cards -->
+                        <!-- Cards -->
+                    </StackLayout>
+                    <Button Clicked="LoadMore_Clicked" Text="Load more items..." TextColor="White" BackgroundColor="#e88506"></Button>
                 </StackLayout>
             </ScrollView>
         </StackLayout>
