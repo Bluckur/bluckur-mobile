@@ -9,59 +9,55 @@
                 BackgroundColor="#f3f3f3"
                 Padding="5">
             <StackLayout>
+                <Label FontSize="Medium"
+                    HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="End"
+                    Text="Info"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="128"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
                     <Label
                     Grid.Row="0" Grid.Column="0"
                     HorizontalTextAlignment="End" VerticalTextAlignment="Center"
-                    Text="Block Number:"/>
+                    Text="Hash:"/>
                     <Label
                     Grid.Row="1" Grid.Column="0"
                     HorizontalTextAlignment="End" VerticalTextAlignment="Center"
-                    Text="Hash:"/>
+                    Text="Previous Block:"/>
                     <Label
                     Grid.Row="2" Grid.Column="0"
                     HorizontalTextAlignment="End" VerticalTextAlignment="Center"
-                    Text="Previous Block:"/>
+                    Text="Time:"/>
                     <Label
                     Grid.Row="3" Grid.Column="0"
                     HorizontalTextAlignment="End" VerticalTextAlignment="Center"
-                    Text="Time:"/>
+                    Text="Reward:"/>
                     <Label
                     Grid.Row="4" Grid.Column="0"
                     HorizontalTextAlignment="End" VerticalTextAlignment="Center"
-                    Text="Reward:"/>
-                    <Label
-                    Grid.Row="5" Grid.Column="0"
-                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"
                     Text="Validator:"/>
 
-                    <Label x:Name="lblNumber"
+                    <Label x:Name="lblHash"
                     Grid.Row="0" Grid.Column="1"
                     HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                    <Label x:Name="lblHash"
+                    <Label x:Name="lblPreviousHash"
                     Grid.Row="1" Grid.Column="1"
                     HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                    <Label x:Name="lblPreviousHash"
+                    <Label x:Name="lblTime"
                     Grid.Row="2" Grid.Column="1"
                     HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                    <Label x:Name="lblTime"
+                    <Label x:Name="lblReward"
                     Grid.Row="3" Grid.Column="1"
                     HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
-                    <Label x:Name="lblReward"
-                    Grid.Row="4" Grid.Column="1"
-                    HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
                     <Label x:Name="lblValidator"
-                    Grid.Row="5" Grid.Column="1"
+                    Grid.Row="4" Grid.Column="1"
                     HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
                 </Grid>
 
-                <Label
-                    HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                <Label FontSize="Medium"
+                    HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="End"
                     Text="Transactions"/>
                 <!-- Block card holder -->
                 <StackLayout>

@@ -164,6 +164,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_transaction%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_skill%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_skill%403x.png" />
+  </ItemGroup>
   <Import Project="..\BluckurWallet\BluckurWallet.projitems" Label="Shared" Condition="Exists('..\BluckurWallet\BluckurWallet.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />

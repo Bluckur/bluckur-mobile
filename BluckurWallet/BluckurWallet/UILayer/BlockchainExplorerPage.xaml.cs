@@ -20,22 +20,32 @@ namespace BluckurWallet.UILayer
         public BlockchainExplorerPage()
         {
             InitializeComponent();
+
             Clear();
 
             explorer = new BlockchainExplorer();
         }
 
+        /// <summary>
+        /// Removes all blocks.
+        /// </summary>
         private void Clear()
         {
             stackBlocks.Children.Clear();
         }
 
+        /// <summary>
+        /// Shows the search menu.
+        /// </summary>
         private void Search_Clicked(object sender, EventArgs e)
         {
             // TODO: Search UI with options (date / wallet / etc). See BlockchainExplorer class.
             datePicker.Focus();
         }
 
+        /// <summary>
+        /// <see cref="DatePicker.DateSelected"/> for <see cref="datePicker"/>.
+        /// </summary>
         private void DateSelected(object sender, DateChangedEventArgs e)
         {
             DateTime time = datePicker.Date;
@@ -45,12 +55,16 @@ namespace BluckurWallet.UILayer
             SelectDay(time);
         }
 
+        /// <summary>
+        /// Shows all blocks for the selected day.
+        /// </summary>
+        /// <param name="day"></param>
         private async void SelectDay(DateTime day)
         {
             try
             {
                 LinkedList<Block> blocks = await explorer.GetBlocksAsync(day);
-                await ShowBlocks(blocks);
+                ShowBlocks(blocks);
             }
             catch (RestException exc)
             {
@@ -58,7 +72,13 @@ namespace BluckurWallet.UILayer
             }
         }
 
-        private async Task ShowBlocks(ICollection<Block> blocks)
+        /// <summary>
+        /// Shows the given blocks as cards.
+        /// Blocks with or without transactions are supported.
+        /// Cards can be selected to show block details in a <see cref="BlockPage"/>.
+        /// </summary>
+        /// <param name="blocks">Blocks to show.</param>
+        private void ShowBlocks(ICollection<Block> blocks)
         {
             foreach (Block block in blocks)
             {
@@ -84,10 +104,14 @@ namespace BluckurWallet.UILayer
         {
             BlockFrame senderFrame = sender as BlockFrame;
             senderFrame.Block = await explorer.GetBlock(senderFrame.Block.Header.Hash);
-
-            // TODO: update specific UI elements (transaction count & amount of COIN transferred)
-
-            await DisplayAlert("Error", "Not implemented.", "OK");
+            
+            senderFrame.LabelTransactionCount.Text = senderFrame.Block.Transactions.Count.ToString();
+            float amount = 0f;
+            foreach (var item in senderFrame.Block.Transactions.Where(t => t.Type == "COIN"))
+            {
+                amount += item.Amount;
+            }
+            senderFrame.LabelTransactionAmount.Text = amount.ToString();
         }
 
         private async void ShowBlock_Clicked(object sender)
@@ -138,7 +162,8 @@ namespace BluckurWallet.UILayer
                 ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = 40 },
-                    new ColumnDefinition { Width = GridLength.Star }
+                    new ColumnDefinition { Width = GridLength.Star },
+                    new ColumnDefinition { Width = 40 }
                 },
                 RowDefinitions =
                 {
@@ -177,7 +202,7 @@ namespace BluckurWallet.UILayer
                 VerticalTextAlignment = TextAlignment.Center
             };
             top.Children.Add(lblBlockTime, 1, 0);
-
+            
             Label lblBlockDate = new Label
             {
                 Text = blockTime.ToString("dd-MM-yyyy"),
@@ -267,6 +292,9 @@ namespace BluckurWallet.UILayer
             body.Children.Add(top);
             body.Children.Add(hash);
             body.Children.Add(bottom);
+
+            frame.LabelTransactionAmount = lblTransactionAmount;
+            frame.LabelTransactionCount = lblTransactions;
 
             return frame;
         }

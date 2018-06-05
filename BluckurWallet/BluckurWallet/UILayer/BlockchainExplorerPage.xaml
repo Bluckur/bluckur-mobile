@@ -26,7 +26,7 @@
                 </DatePicker.MinimumDate>
             </DatePicker>
 
-            <Label Text="Blocks:" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+            <Label Text="Blocks" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
             <!-- Block scroll area -->
             <ScrollView
                 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
