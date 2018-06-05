@@ -3,20 +3,76 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BluckurWallet.UILayer.BlockPage">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center" Padding="20">
-            <Label HorizontalTextAlignment="Center" Text="Give us some more time and we'll make this prettier."
-                HorizontalOptions="CenterAndExpand" />
-            <Label HorizontalTextAlignment="Center" Text="Transactions:"
-                HorizontalOptions="CenterAndExpand" />
-            <ScrollView>
-                <Grid x:Name="gridTransactions">
+        <!-- Block scroll area -->
+        <ScrollView
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                BackgroundColor="#f3f3f3"
+                Padding="5">
+            <StackLayout>
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="128"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    
+                    <Label
+                    Grid.Row="0" Grid.Column="0"
+                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                    Text="Block Number:"/>
+                    <Label
+                    Grid.Row="1" Grid.Column="0"
+                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                    Text="Hash:"/>
+                    <Label
+                    Grid.Row="2" Grid.Column="0"
+                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                    Text="Previous Block:"/>
+                    <Label
+                    Grid.Row="3" Grid.Column="0"
+                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                    Text="Time:"/>
+                    <Label
+                    Grid.Row="4" Grid.Column="0"
+                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                    Text="Reward:"/>
+                    <Label
+                    Grid.Row="5" Grid.Column="0"
+                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                    Text="Validator:"/>
+
+                    <Label x:Name="lblNumber"
+                    Grid.Row="0" Grid.Column="1"
+                    HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <Label x:Name="lblHash"
+                    Grid.Row="1" Grid.Column="1"
+                    HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <Label x:Name="lblPreviousHash"
+                    Grid.Row="2" Grid.Column="1"
+                    HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <Label x:Name="lblTime"
+                    Grid.Row="3" Grid.Column="1"
+                    HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <Label x:Name="lblReward"
+                    Grid.Row="4" Grid.Column="1"
+                    HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <Label x:Name="lblValidator"
+                    Grid.Row="5" Grid.Column="1"
+                    HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
                 </Grid>
-            </ScrollView>
-        </StackLayout>
+
+                <Label
+                    HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                    Text="Transactions"/>
+                <!-- Block card holder -->
+                <StackLayout>
+                    <StackLayout x:Name="stackTransactions"
+                    Margin="0" Spacing="7" Padding="2,0"
+                    VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <!-- Cards -->
+                    </StackLayout>
+                    <Button Clicked="LoadMore_Clicked" Text="Load more transactions..." TextColor="White" BackgroundColor="#e88506"></Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

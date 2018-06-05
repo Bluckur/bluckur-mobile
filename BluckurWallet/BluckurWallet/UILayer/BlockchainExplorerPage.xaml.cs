@@ -65,6 +65,14 @@ namespace BluckurWallet.UILayer
                 BlockFrame frame = CreateBlockFrame(block);
                 frame.GestureRecognizers.Add(new TapGestureRecognizer
                 {
+                    NumberOfTapsRequired = 2,
+                    CommandParameter = frame,
+                    Command = new Command(UpdateBlockFrame)
+                });
+                frame.GestureRecognizers.Add(new TapGestureRecognizer
+                {
+                    NumberOfTapsRequired = 1,
+                    CommandParameter = frame,
                     Command = new Command(ShowBlock_Clicked)
                 });
 
@@ -72,11 +80,29 @@ namespace BluckurWallet.UILayer
             }
         }
 
+        private async void UpdateBlockFrame(object sender)
+        {
+            BlockFrame senderFrame = sender as BlockFrame;
+            senderFrame.Block = await explorer.GetBlock(senderFrame.Block.Header.Hash);
+
+            // TODO: update specific UI elements (transaction count & amount of COIN transferred)
+
+            await DisplayAlert("Error", "Not implemented.", "OK");
+        }
+
         private async void ShowBlock_Clicked(object sender)
         {
             BlockFrame senderFrame = sender as BlockFrame;
-            await this.DisplayAlert("Nope", "Not implemented.", "Ok");
-            // await this.Navigation.PushAsync(new BlockPage(block));
+
+            if (senderFrame?.Block != null)
+            {
+                var page = new BlockPage(senderFrame.Block);
+                await Navigation.PushAsync(page);
+            }
+            else
+            {
+                await DisplayAlert("Error", "The selected block has no data.", "OK");
+            }
         }
 
         private BlockFrame CreateBlockFrame(Block block)
@@ -90,6 +116,9 @@ namespace BluckurWallet.UILayer
                 Padding = tZero,
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
+
+            // Assign block to frame
+            frame.Block = block;
 
             // Card content
             StackLayout body = new StackLayout
