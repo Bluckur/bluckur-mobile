@@ -100,6 +100,11 @@ namespace BluckurWallet.UILayer
             }
         }
 
+        /// <summary>
+        /// Updates the data of a <see cref="BlockFrame"/>.
+        /// The transaction count and amount are updated (as this data may have been unavailable initially).
+        /// </summary>
+        /// <param name="sender"><see cref="BlockFrame"/> to update.</param>
         private async void UpdateBlockFrame(object sender)
         {
             BlockFrame senderFrame = sender as BlockFrame;
@@ -114,6 +119,10 @@ namespace BluckurWallet.UILayer
             senderFrame.LabelTransactionAmount.Text = amount.ToString();
         }
 
+        /// <summary>
+        /// Shows a specific block and its transactions in a new page.
+        /// </summary>
+        /// <param name="sender">Selected <see cref="BlockFrame"/>.</param>
         private async void ShowBlock_Clicked(object sender)
         {
             BlockFrame senderFrame = sender as BlockFrame;
@@ -129,6 +138,12 @@ namespace BluckurWallet.UILayer
             }
         }
 
+        /// <summary>
+        /// Creates a frame view displaying the details of a block.
+        /// The returned value can be added to the <see cref="stackBlocks"/>.
+        /// </summary>
+        /// <param name="block">Block to display.</param>
+        /// <returns>Block frame.</returns>
         private BlockFrame CreateBlockFrame(Block block)
         {
             Thickness tZero = new Thickness(0d);
@@ -299,6 +314,12 @@ namespace BluckurWallet.UILayer
             return frame;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
         private async Task LoadMore_Clicked(object sender, EventArgs e)
         {
 

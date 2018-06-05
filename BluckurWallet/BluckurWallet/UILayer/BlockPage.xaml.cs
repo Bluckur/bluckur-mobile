@@ -14,36 +14,70 @@ namespace BluckurWallet.UILayer
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BlockPage : ContentPage
     {
+        private static readonly Color SPACER_COLOR = Color.FromRgb(238, 238, 238);
+
         BlockchainExplorer explorer;
+        Queue<Transaction> pending;
 
         bool testing = true; // TODO: REMOVE.
 
         public BlockPage(Block block)
         {
             InitializeComponent();
+
             explorer = new BlockchainExplorer();
+            pending = new Queue<Transaction>();
 
             // Make previous hash tappable.
             lblPreviousHash.GestureRecognizers.Add(new TapGestureRecognizer
             {
-                Command = new Command(async () =>
-                {
-                    if (!string.IsNullOrWhiteSpace(block.Header.PreviousHash))
-                    {
-                        Block b = await explorer.GetBlock(block.Header.PreviousHash);
-                        await Navigation.PushAsync(new BlockPage(b));
-                    }
-                })
+                Command = new Command(ShowPrevious),
+                CommandParameter = block
             });
 
-            Title = "Block " + block.Header.BlockNumber;
+            // Show block
             Show(block);
         }
 
+        /// <summary>
+        /// Shows the previous block in a new <see cref="BlockPage"/>.
+        /// </summary>
+        /// <param name="oBlock">Current block.</param>
+        private async void ShowPrevious(object oBlock)
+        {
+            Block block = oBlock as Block;
+
+            if (block == null) return;
+
+            if (string.IsNullOrWhiteSpace(block.Header.PreviousHash))
+            {
+                await DisplayAlert("Error", "The genesis block does not have a previous block.", "OK");
+            }
+            else
+            {
+                try
+                {
+                    Block previousBlock = await explorer.GetBlock(block.Header.PreviousHash);
+                    await Navigation.PushAsync(new BlockPage(block));
+                }
+                catch
+                {
+                    await DisplayAlert("Error", "Couldn't display previous block.", "OK");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Shows the block details and transactions.
+        /// </summary>
+        /// <param name="block">Block to show.</param>
         private async void Show(Block block)
         {
             // HEADER
             var h = block.Header;
+            
+            Title = "Block " + h.BlockNumber;
+
             lblHash.Text = h.Hash;
             lblPreviousHash.Text = string.IsNullOrWhiteSpace(h.PreviousHash) ? "Unknown" : h.PreviousHash;
             lblReward.Text = h.Reward.ToString();
@@ -55,6 +89,8 @@ namespace BluckurWallet.UILayer
             {
                 block = await explorer.GetBlock(block.Header.Hash);
             }
+
+            #region Test data
 
             if (testing && block.Transactions.Count == 0)
             {
@@ -85,58 +121,51 @@ namespace BluckurWallet.UILayer
                         Type = "COIN"
                     }
                 };
+
+                for (int i = 0; i < 25; i++)
+                {
+                    block.Transactions.Add(new Transaction
+                    {
+                        Amount = 1f,
+                        Sender = "a",
+                        Recipient = "b",
+                        TimeStamp = DateTime.Now.ToUnix(),
+                        Type = "COIN"
+                    });
+                }
+
                 ShowTransactions(block.Transactions);
                 return;
             }
 
+            #endregion
+
             ShowTransactions(block.Transactions);
         }
 
-        private async void ShowTransactions(ICollection<Transaction> transactions)
+        /// <summary>
+        /// Sets the UI to show the given transactions.
+        /// Previous transactions will be cleared.
+        /// </summary>
+        /// <param name="transactions">Transactions to show.</param>
+        private void ShowTransactions(ICollection<Transaction> transactions)
         {
-            int row = 0;
-
+            pending.Clear();
             foreach (var item in transactions)
             {
-                stackTransactions.Children.Add(CreateTransactionFrame(item));
+                pending.Enqueue(item);
             }
 
-            /*
-            foreach (var item in transactions)
-            {
-                gridTransactions.RowDefinitions.Add(new RowDefinition()
-                {
-                    Height = 30
-                });
-
-                DateTime time = new DateTime(1970, 1, 1);
-                time = time.AddSeconds(item.TimeStamp);
-
-                Label from = new Label();
-                Label amount = new Label();
-                Label to = new Label();
-                from.HorizontalTextAlignment = TextAlignment.Center;
-                amount.HorizontalTextAlignment = TextAlignment.Center;
-                to.HorizontalTextAlignment = TextAlignment.Center;
-                from.VerticalTextAlignment = TextAlignment.Center;
-                amount.VerticalTextAlignment = TextAlignment.Center;
-                to.VerticalTextAlignment = TextAlignment.Center;
-
-                from.Text = item.Sender != null ? item.Sender : "Nobody";
-                amount.Text = string.Format("=> {0} {1} =>", item.Amount, item.Type);
-                to.Text = item.Recipient;
-
-                gridTransactions.Children.Add(from, 0, row);
-                gridTransactions.Children.Add(amount, 1, row);
-                gridTransactions.Children.Add(to, 2, row);
-
-                row++;
-
-                await Task.Delay(10);
-            }
-            */
+            stackTransactions.Children.Clear();
+            LoadMore();
         }
 
+        /// <summary>
+        /// Creates a frame view displaying the details of a transaction.
+        /// The returned value can be added to the <see cref="stackTransactions"/>.
+        /// </summary>
+        /// <param name="transaction">Transaction to display.</param>
+        /// <returns>Transaction frame.</returns>
         private Frame CreateTransactionFrame(Transaction transaction)
         {
             Thickness tZero = new Thickness(0d);
@@ -150,6 +179,7 @@ namespace BluckurWallet.UILayer
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
 
+            // Card body
             StackLayout body = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal,
@@ -158,6 +188,7 @@ namespace BluckurWallet.UILayer
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
+            // Time & Currency
             Grid left = new Grid
             {
                 HorizontalOptions = LayoutOptions.Start,
@@ -171,17 +202,19 @@ namespace BluckurWallet.UILayer
                 }
             };
 
+            // Time
             Label lblTime = new Label
             {
                 Text = transaction.TimeStamp.ToDateTime().ToString("HH:mm"),
                 FontSize = 14,
-                
+
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 VerticalOptions = LayoutOptions.Center,
                 Margin = new Thickness(0, 0, 5, 0)
             };
 
+            // Currency
             Image imgCurrency = new Image
             {
                 Source = transaction.Type == "COIN" ? "icon.png" : "ic_skill.png",
@@ -200,6 +233,7 @@ namespace BluckurWallet.UILayer
                 LineBreakMode = LineBreakMode.CharacterWrap
             };
 
+            // Sender / Recipient
             Grid grdWallets = new Grid
             {
                 HorizontalOptions = LayoutOptions.EndAndExpand,
@@ -232,18 +266,14 @@ namespace BluckurWallet.UILayer
                 LineBreakMode = LineBreakMode.TailTruncation
             };
 
-            frame.Content = body;
-
-            body.Children.Add(left);
-            body.Children.Add(grdWallets);
-
+            // Set children
             BoxView spacer1 = new BoxView
             {
-                BackgroundColor = Color.FromRgb(238, 238, 238)
+                BackgroundColor = SPACER_COLOR
             };
             BoxView spacer2 = new BoxView
             {
-                BackgroundColor = Color.FromRgb(238, 238, 238)
+                BackgroundColor = SPACER_COLOR
             };
 
             left.Children.Add(lblTime, 0, 0);
@@ -251,17 +281,39 @@ namespace BluckurWallet.UILayer
             left.Children.Add(imgCurrency, 2, 0);
             left.Children.Add(lblCurrency, 3, 0);
             left.Children.Add(spacer2, 4, 0);
-            //left.Children.Add(grdWallets);
-            
+
             grdWallets.Children.Add(lblSender, 0, 0);
             grdWallets.Children.Add(lblRecipient, 0, 1);
-            
+
+            frame.Content = body;
+
+            body.Children.Add(left);
+            body.Children.Add(grdWallets);
+
             return frame;
         }
 
-        private async Task LoadMore_Clicked(object sender, EventArgs e)
+        /// <summary>
+        /// Tap callback for the load more items button.
+        /// </summary>
+        private void LoadMore_Clicked(object sender, EventArgs e)
         {
+            LoadMore();
+        }
 
+        /// <summary>
+        /// Loads more transactions, if any are still <see cref="pending"/>.
+        /// </summary>
+        /// <param name="amount">Maximum amount of transactions to load.</param>
+        private void LoadMore(int amount = 10)
+        {
+            if (amount <= 0) throw new ArgumentOutOfRangeException("Amount must be a positive integer.");
+
+            for (int i = 0; i < amount; i++)
+            {
+                if (pending.Count == 0) break;
+                stackTransactions.Children.Add(CreateTransactionFrame(pending.Dequeue()));
+            }
         }
     }
 }
