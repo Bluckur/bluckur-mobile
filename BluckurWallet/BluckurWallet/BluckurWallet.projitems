@@ -35,6 +35,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\CartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -72,6 +76,11 @@
       <DependentUpon>ShopItemPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Domain\ShopItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\BooleanInverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Domain\ShoppingCart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UILayer\CartPage.xaml.cs">
+      <DependentUpon>CartPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UILayer\RestPage.xaml">

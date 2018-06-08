@@ -5,14 +5,20 @@
             <StackLayout Margin="20, 0, 20, 20">
                 <StackLayout  VerticalOptions="Start" HorizontalOptions="FillAndExpand">
                     <Label x:Name="lblProductName" FontSize="Large" Text="-" FontAttributes="Bold"></Label>
-                    <Label x:Name="lblInStock" TextColor="#d9534f" Text="Out of Stock"></Label>
+                    <Grid>
+                        <Label x:Name="lblInStock" Grid.Column="0" TextColor="#d9534f"></Label>
+                        <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End">
+                            <Label x:Name="lblPrice" Grid.Column="1" Text="Out of Stock" FontSize="Medium"></Label>
+                            <Image Source="icon.png" WidthRequest="20"></Image>
+                        </StackLayout>
+                    </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="FillAndExpand">
                     <Image x:Name="imgProductImage" HeightRequest="100" Margin="0, 30"></Image>
                 </StackLayout>
                 <Grid>
-                    <Entry Placeholder="0" Grid.Row="0" Keyboard="Numeric"></Entry>
-                    <Button Text="Add to Cart" Grid.Column="1" TextColor="White" BackgroundColor="#e88506"></Button>
+                    <Entry x:Name="entAmount" Placeholder="0" Grid.Row="0" Keyboard="Numeric" Text="1"></Entry>
+                    <Button Clicked="btnAddToCart_Click" Text="Add to Cart" Grid.Column="1" TextColor="White" BackgroundColor="#e88506"></Button>
                 </Grid>
                 <Label Margin="0, 20, 0, 0" FontAttributes="Bold">Description</Label>
                 <Label x:Name="lblDescription" LineBreakMode="WordWrap"></Label>
