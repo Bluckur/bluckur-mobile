@@ -10,6 +10,16 @@ namespace BluckurWallet.UILayer
         public HomePage()
         {
             InitializeComponent();
+
+			this.CurrentPageChanged += (object sender, EventArgs e) => 
+			{
+                Page page = this.CurrentPage;
+				if (page is ShopPage)
+				{
+					ShopPage shopPage = (ShopPage)page;
+					shopPage.LoadFirstItems();
+				}
+            };
         }
 
         /// <summary>
