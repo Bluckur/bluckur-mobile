@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 using BluckurWallet.ServiceLayer.Rest;
 using BluckurWallet.ServiceLayer;
 using BluckurWallet.Domain;
+using System.Net.Sockets;
 
 namespace BluckurWallet.UILayer
 {
@@ -66,9 +67,17 @@ namespace BluckurWallet.UILayer
                 LinkedList<Block> blocks = await explorer.GetBlocksAsync(day);
                 ShowBlocks(blocks);
             }
+            catch (SocketException exc)
+            {
+                await DisplayAlert("Error", "Connection aborted. Please try again.", "OK");
+            }
+            catch (OperationCanceledException exc)
+            {
+                await DisplayAlert("Error", "Couldn't retrieve Blockchain information.", "OK");
+            }
             catch (RestException exc)
             {
-                await DisplayAlert("Error", exc.InnerException.Message, "Ok");
+                await DisplayAlert("Error", exc.InnerException.Message, "OK");
             }
         }
 

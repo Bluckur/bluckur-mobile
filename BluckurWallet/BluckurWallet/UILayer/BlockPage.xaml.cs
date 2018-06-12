@@ -122,18 +122,6 @@ namespace BluckurWallet.UILayer
                     }
                 };
 
-                for (int i = 0; i < 25; i++)
-                {
-                    block.Transactions.Add(new Transaction
-                    {
-                        Amount = 1f,
-                        Sender = "a",
-                        Recipient = "b",
-                        TimeStamp = DateTime.Now.ToUnix(),
-                        Type = "COIN"
-                    });
-                }
-
                 ShowTransactions(block.Transactions);
                 return;
             }
