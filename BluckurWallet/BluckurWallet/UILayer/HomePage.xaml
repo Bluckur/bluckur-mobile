@@ -16,14 +16,6 @@
 
     <local:BlockchainExplorerPage Title="Explorer" Icon="ic_explorer.png"/>
 
-    <ContentPage Title="Shop" Icon="ic_shop.png">
-        <ContentPage.Content>
-            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="TODO"></Label>
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
-
     <local:ShopPage Title="Shop" Icon="ic_shop.png"/>
 	
     <local:HelpPage Title="Help" Icon="ic_help.png"/>
