@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BluckurWallet.Domain;
+using BluckurWallet.ServiceLayer.Rest;
+using Newtonsoft.Json.Linq;
 using Xamarin.Forms;
 
 namespace BluckurWallet.UILayer
@@ -9,17 +11,139 @@ namespace BluckurWallet.UILayer
 	public partial class ShopPage : ContentPage
 	{
 		private int currentItemCount;
-		private bool loadFirstTime;
+        private bool loadFirstTime;
+        RestConsumer restConsumer;
+        Uri baseUrl;
 
 		public ShopPage()
 		{
 			InitializeComponent();
             
-			BindingContext = this;
+            BindingContext = this;
+            restConsumer = new RestConsumer();
 
 			currentItemCount = 0;
 			loadFirstTime = true;
 		}
+
+        /// <summary>
+        /// Fetch rest server ip and public key from storage.
+        /// </summary>
+        private async void getStoredValues()
+        {
+            string defaultIp = "84.29.78.31:8081";
+
+            try
+            {
+                object shopServerIpObj = null;
+
+                bool fetchedShopServerIp = Application.Current.Properties.TryGetValue("shopip", out shopServerIpObj);
+
+                string shopServerIp = "";
+
+                if (fetchedShopServerIp)
+                {
+                    shopServerIp = shopServerIpObj.ToString();
+                }
+                else
+                {
+                    Application.Current.Properties.Add(new KeyValuePair<string, object>("shopip", defaultIp));
+
+                    shopServerIp = defaultIp;
+                }
+
+                baseUrl = new Uri(string.Format("http://{0}/product/get/", shopServerIp));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", string.Format("{0} - {1}", ex.GetType(), ex.Message), "OK");
+            }
+        }
+
+        private async void loadAllItems()
+        {
+            this.IsBusy = true;
+            int itemIndex = 0;
+
+            getStoredValues();
+            List<ShopItem> shopItems = await fetchShopItemsFromRest();
+
+            for (int i = 0; i < shopItems.Count; i++)
+            {
+                RowDefinition definition = new RowDefinition();
+                definition.Height = 140;
+
+                gridShopItems.RowDefinitions.Add(definition);
+
+                for (int j = 0; j < 2; j++)
+                {
+                    if (itemIndex == shopItems.Count)
+                    {
+                        this.IsBusy = false;
+                        return;
+                    }
+
+                    ShopItem item = shopItems[itemIndex];
+
+                    Frame parentFrame = new Frame
+                    {
+                        GestureRecognizers =
+                        {
+                            new TapGestureRecognizer
+                            {
+                                Command = new Command (()=>viewShopItem(item.Id))
+                            }
+                        }
+                    };
+
+                    parentFrame.CornerRadius = 5;
+                    parentFrame.Padding = 5;
+                    parentFrame.BackgroundColor = Color.White;
+
+                    // Parent stacklayout
+                    StackLayout stackLayout = new StackLayout();
+
+                    stackLayout.HorizontalOptions = new LayoutOptions(LayoutAlignment.Fill, true);
+                    stackLayout.Orientation = StackOrientation.Vertical;
+
+                    // Product title and image.
+                    Label lblTitle = new Label();
+                    lblTitle.Text = item.Name;
+                    lblTitle.HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false);
+
+                    Image imgItem = new Image();
+                    imgItem.Source = "ic_shop.png";
+                    imgItem.VerticalOptions = new LayoutOptions(LayoutAlignment.Fill, true);
+
+                    stackLayout.Children.Add(lblTitle);
+                    stackLayout.Children.Add(imgItem);
+
+                    // Product price
+                    StackLayout productPriceStackLayout = new StackLayout();
+                    productPriceStackLayout.Orientation = StackOrientation.Horizontal;
+                    productPriceStackLayout.HorizontalOptions = new LayoutOptions(LayoutAlignment.End, false);
+
+                    Label lblPrice = new Label();
+                    lblPrice.Text = item.Price.ToString();
+
+                    Image imgCoin = new Image();
+                    imgCoin.Source = "icon.png";
+                    imgCoin.WidthRequest = 15;
+
+                    productPriceStackLayout.Children.Add(lblPrice);
+                    productPriceStackLayout.Children.Add(imgCoin);
+
+                    stackLayout.Children.Add(productPriceStackLayout);
+
+                    parentFrame.Content = stackLayout;
+                    gridShopItems.Children.Add(parentFrame, j, i);
+
+                    itemIndex++;
+                }
+            }
+
+            this.IsBusy = false;
+        }
 
         /// <summary>
         /// Loads next shop items.
@@ -30,7 +154,8 @@ namespace BluckurWallet.UILayer
 
 			this.IsBusy = true;
 
-			List<ShopItem> shopItems = await fetchShopItems();
+            getStoredValues();
+            List<ShopItem> shopItems = await fetchShopItemsFromRest();
 
 			for (int i = tempCounter; i < tempCounter + 5; i++)
 			{
@@ -47,7 +172,7 @@ namespace BluckurWallet.UILayer
 						{
 							new TapGestureRecognizer
 							{
-								Command = new Command (()=>viewShopItem())
+								Command = new Command (()=>viewShopItem(-1))
 							}
 						}
 					};
@@ -111,23 +236,29 @@ namespace BluckurWallet.UILayer
 		/// <summary>
 		/// Navigate to ShopItem page.
 		/// </summary>
-		async void viewShopItem()
+		async void viewShopItem(int productId)
 		{
-			await this.Navigation.PushAsync(new ShopItemPage(-1));
+            await this.Navigation.PushAsync(new ShopItemPage(productId));
 		}
 
-        private async Task<List<ShopItem>> fetchShopItems()
+        private async Task<List<ShopItem>> fetchShopItemsFromRest()
 		{
 			return await Task.Run(async () => 
-			{
-				List<ShopItem> shopItems = new List<ShopItem>();
-
-                for (int i = 0; i < 10; i++)
+            {
+                try
                 {
-                    shopItems.Add(new ShopItem(i, 2, "ic_shop.png", "Product name", "You should buy this!", 10));
-                }
+                    RestResponse response = await restConsumer.GetAsync(new Uri(baseUrl, "all"));
 
-				return shopItems;
+                    JArray jsonArray = JArray.Parse(response.PlainBody);
+
+                    List<ShopItem> itemList = jsonArray.ToObject<List<ShopItem>>();
+                    return itemList;
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", "Oops, something went wrong", "OK");
+                    return null;
+                }
 			});
 		}
 
@@ -138,7 +269,7 @@ namespace BluckurWallet.UILayer
 		{
 			if (loadFirstTime)
 			{
-                loadNextItems();
+                loadAllItems();
 				loadFirstTime = false;
 			}
 		}

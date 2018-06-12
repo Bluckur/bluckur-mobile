@@ -14,11 +14,11 @@
             <Button x:Name="btnCartPage" Clicked="btnCartPage_Click" HeightRequest="50" TextColor="White" BackgroundColor="#e88506" IsVisible="false"></Button>
             <ScrollView>
                 <StackLayout>
-                    <Grid x:Name="gridShopItems" Padding="10, 0, 10, 5">
+                    <Grid x:Name="gridShopItems" Padding="10, 5">
                     </Grid>
                     <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}">
                     </ActivityIndicator>
-                    <Button Clicked="btnMoreItems_Click" Text="Load more items..." TextColor="White" BackgroundColor="#e88506" IsVisible="{Binding IsBusy, Converter={StaticResource booleanInverter}}">
+                    <Button Clicked="btnMoreItems_Click" Text="Load more items..." TextColor="White" BackgroundColor="#e88506" IsVisible="false"> <!-- IsVisible="{Binding IsBusy, Converter={StaticResource booleanInverter}}"-->
                     </Button>
                 </StackLayout>
             </ScrollView>

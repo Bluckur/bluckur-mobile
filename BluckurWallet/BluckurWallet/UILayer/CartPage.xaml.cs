@@ -49,7 +49,7 @@ namespace BluckurWallet.UILayer
                 lblTitle.HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false);
 
                 Image imgItem = new Image();
-                imgItem.Source = currentItem.ImagePath;
+                imgItem.Source = "ic_shop.png";
                 imgItem.VerticalOptions = new LayoutOptions(LayoutAlignment.Fill, true);
 
                 stackLayout.Children.Add(lblTitle);
@@ -62,7 +62,7 @@ namespace BluckurWallet.UILayer
 
                 Label lblPrice = new Label();
                 double totalItemPrice = currentItem.Price * pair.Value;
-                lblPrice.Text = totalItemPrice.ToString().Replace('.', ',');
+                lblPrice.Text = "(" + pair.Value + " x " + currentItem.Name + ") " + totalItemPrice.ToString().Replace('.', ',');
 
                 Image imgCoin = new Image();
                 imgCoin.Source = "icon.png";
@@ -79,9 +79,9 @@ namespace BluckurWallet.UILayer
             }
         }
 
-        void btnOrder_Click(object sender, System.EventArgs e)
+        async void btnOrder_Click(object sender, System.EventArgs e)
         {
-            throw new NotImplementedException();
+            await DisplayAlert("Info", "Function not implemented", "OK");
         }
     }
 }

@@ -35,7 +35,6 @@ namespace BluckurWallet.UILayer
             string defaultIp = "84.29.78.31:80";
 
 			publicKey = string.Empty;
-            baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
 
             try
             {
