@@ -278,6 +278,13 @@ namespace BluckurWallet.UILayer
             body.Children.Add(left);
             body.Children.Add(grdWallets);
 
+            frame.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(async () =>
+                {
+                    await DisplayAlert("Transaction", string.Format("Amount: {0}\nFrom: {1}\nTo: {2}", transaction.Amount, transaction.Sender ?? "", transaction.Recipient), "Return");
+                })
+            });
             return frame;
         }
 
