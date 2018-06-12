@@ -21,18 +21,22 @@ namespace BluckurWallet.UILayer
 				object publicKeyObj = null;
 				object privateKeyObj = null;
 				object quizServerIpObj = null;
-                
+                object explorerServerObj = null;
+
 				bool fetchedPublicKey = Application.Current.Properties.TryGetValue("pubKey", out publicKeyObj);
 				bool fetchedPrivateKey = Application.Current.Properties.TryGetValue("privKey", out privateKeyObj);
 				bool fetchedQuizServerIp = Application.Current.Properties.TryGetValue("quizip", out quizServerIpObj);
+                bool fetchedExplorerServer = Application.Current.Properties.TryGetValue("explorerServer", out explorerServerObj);
 
 				string publicKey = fetchedPublicKey ? publicKeyObj.ToString() : "???";
 				string privateKey = fetchedPrivateKey ? privateKeyObj.ToString() : "???";
 				string quizServerIp = fetchedQuizServerIp ? quizServerIpObj.ToString() : "???";
+                string explorerServer = fetchedExplorerServer ? explorerServerObj.ToString() : "???";
 
 				entPublicKey.Text = publicKey;
 				entPrivateKey.Text = privateKey;
 				entQuizServerIp.Text = quizServerIp;
+                entExplorerServer.Text = explorerServer;
 			}
 			catch (Exception ex)
 			{
@@ -54,6 +58,11 @@ namespace BluckurWallet.UILayer
 				Application.Current.Properties.Add(new KeyValuePair<string, object>("pubKey", entPublicKey.Text));
 				Application.Current.Properties.Add(new KeyValuePair<string, object>("privKey", entPrivateKey.Text));
 				Application.Current.Properties.Add(new KeyValuePair<string, object>("quizip", entQuizServerIp.Text));
+                Application.Current.Properties.Add(new KeyValuePair<string, object>("explorerServer", entExplorerServer.Text));
+                await Application.Current.SavePropertiesAsync();
+
+                // Because Application.Current.PropertyChanged doesn't fire on the above changed, for now we'll change the Explorer address manually.
+                ServiceLayer.BlockchainExplorer.Address = entExplorerServer.Text;
 
                 await DisplayAlert("Success", "Data saved!", "OK");
 			}

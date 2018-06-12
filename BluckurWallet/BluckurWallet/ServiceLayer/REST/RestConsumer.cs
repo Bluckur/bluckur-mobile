@@ -23,6 +23,7 @@ namespace BluckurWallet.ServiceLayer.Rest
         public RestConsumer()
         {
             client = new HttpClient();
+            client.Timeout = new TimeSpan(0, 0, 5);
             client.MaxResponseContentBufferSize = MAX_SIZE; // 2^24 (16MB)
         }
 

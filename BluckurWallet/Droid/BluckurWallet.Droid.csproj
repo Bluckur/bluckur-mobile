@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BluckurWallet.Droid</RootNamespace>
     <AssemblyName>BluckurWallet.Droid</AssemblyName>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -161,6 +161,15 @@
     <AndroidResource Include="Resources\drawable\ic_quiz.png" />
     <AndroidResource Include="Resources\drawable\ic_settings.png" />
     <AndroidResource Include="Resources\drawable\ic_shop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_block.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_transaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_skill.png" />
   </ItemGroup>
   <Import Project="..\BluckurWallet\BluckurWallet.projitems" Label="Shared" Condition="Exists('..\BluckurWallet\BluckurWallet.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
