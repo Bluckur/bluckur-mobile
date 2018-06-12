@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BluckurWallet.Domain;
 using BluckurWallet.ServiceLayer.Rest;
 using Newtonsoft.Json.Linq;
@@ -19,19 +20,22 @@ namespace BluckurWallet.UILayer
 
             restConsumer = new RestConsumer();
 
-            getStoredValues();
-            fetchShopItemFromRest(productId);
-			loadItem();
+            setupPage(productId);
 		}
+
+        private async void setupPage(int productId)
+        {
+            await getStoredValues();
+            await fetchShopItemFromRest(productId);
+            loadItem();
+        }
 
         /// <summary>
         /// Fetch rest server ip and public key from storage.
         /// </summary>
-        private async void getStoredValues()
+        private async Task getStoredValues()
         {
-            string defaultIp = "84.29.78.31:80";
-
-            baseUrl = new Uri(string.Format("http://{0}/ShopApp/api/Rest/", defaultIp));
+            string defaultIp = "84.29.78.31:8081";
 
             try
             {
@@ -52,7 +56,7 @@ namespace BluckurWallet.UILayer
                     shopServerIp = defaultIp;
                 }
 
-                baseUrl = new Uri(string.Format("http://{0}/ShopApp/api/Rest/", shopServerIp));
+                baseUrl = new Uri(string.Format("http://{0}/product/get/", shopServerIp));
             }
             catch (Exception ex)
             {
@@ -60,11 +64,11 @@ namespace BluckurWallet.UILayer
             }
         }
 
-        private async void fetchShopItemFromRest(int productId)
+        private async Task fetchShopItemFromRest(int productId)
         {
             try
             {
-                RestResponse response = await restConsumer.GetAsync(new Uri(baseUrl, "getQuestion"));
+                RestResponse response = await restConsumer.GetAsync(new Uri(baseUrl, productId.ToString()));
 
                 JObject json = response.JsonBody;
 
@@ -85,14 +89,14 @@ namespace BluckurWallet.UILayer
             }
 
 			lblProductName.Text = shopItem.Name;
-			imgProductImage.Source = shopItem.ImagePath;
+			imgProductImage.Source = "ic_shop.png";
 			lblDescription.Text = shopItem.Description;
             lblPrice.Text = shopItem.Price.ToString().Replace('.', ',');
 
             // In Stock
-			if (shopItem.Stock > 0)
+			if (shopItem.Quantity > 0)
 			{
-                lblInStock.Text = shopItem.Stock + " items in stock";
+                lblInStock.Text = shopItem.Quantity + " items in stock";
 				lblInStock.TextColor = Color.FromHex("5cb85c");
 			}
 			else
@@ -117,7 +121,7 @@ namespace BluckurWallet.UILayer
 
             int amount = Convert.ToInt32(entAmount.Text);
 
-            if (amount > shopItem.Stock)
+            if (amount > shopItem.Quantity)
             {
                 await DisplayAlert("Not enough items", "Oops, not enough items in stock.", "OK");
                 return;

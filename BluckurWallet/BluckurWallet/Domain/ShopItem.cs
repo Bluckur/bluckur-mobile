@@ -8,7 +8,7 @@ namespace BluckurWallet.Domain
 		public string ImagePath { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
-		public int Stock { get; set; }      
+		public int Quantity { get; set; }      
 
         public ShopItem(int id, double price, string imagePath, string name, string description, int stock)
         {
@@ -17,7 +17,7 @@ namespace BluckurWallet.Domain
 			this.ImagePath = imagePath;
 			this.Name = name;
 			this.Description = description;
-			this.Stock = stock;
+			this.Quantity = stock;
         }
     }
 }
