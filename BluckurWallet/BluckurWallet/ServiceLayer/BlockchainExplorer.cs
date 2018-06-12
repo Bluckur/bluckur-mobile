@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace BluckurWallet.ServiceLayer
 {
@@ -17,9 +18,7 @@ namespace BluckurWallet.ServiceLayer
     /// </summary>
     public class BlockchainExplorer
     {
-        // TODO: Configuration for endpoint (being worked on in another branch).
-        private static readonly string address = "http://localhost:3000/api/";
-        private static readonly Uri endpoint = new Uri(address);
+        public static string Address { get; set; } = "http://192.168.135.2:3000/api/";
 
         private static readonly Dictionary<string, string> endpoints = new Dictionary<string, string>()
         {
@@ -50,6 +49,27 @@ namespace BluckurWallet.ServiceLayer
         public BlockchainExplorer()
         {
             consumer = new RestConsumer();
+
+            UpdateAddress();
+            Application.Current.PropertyChanged += PropertyChanged;
+        }
+        
+        private void PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            // Doesn't fire when the properties are changed in the HelpPage!
+            if (e.PropertyName == "explorerServer")
+            {
+                UpdateAddress();
+            }
+        }
+
+        private void UpdateAddress()
+        {
+            object explorerServerObj = null;
+            if (Application.Current.Properties.TryGetValue("explorerServer", out explorerServerObj))
+            {
+                Address = explorerServerObj.ToString();
+            }
         }
 
         #region Ednpoint calls
@@ -59,7 +79,7 @@ namespace BluckurWallet.ServiceLayer
             try
             {
                 // TODO: Verify hash (hex of length x?)
-                string url = string.Format(address + endpoints["blockByHash"],
+                string url = string.Format(Address + endpoints["blockByHash"],
                     hash
                 );
 
@@ -89,7 +109,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["blockByNumber"],
+                string url = string.Format(Address + endpoints["blockByNumber"],
                     number
                 );
 
@@ -119,7 +139,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["nextBlock"],
+                string url = string.Format(Address + endpoints["nextBlock"],
                     block.Header.Hash
                 );
 
@@ -150,7 +170,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["nextBlocks"],
+                string url = string.Format(Address + endpoints["nextBlocks"],
                     hash
                 );
 
@@ -181,7 +201,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["previousBlock"],
+                string url = string.Format(Address + endpoints["previousBlock"],
                     block.Header.Hash
                 );
 
@@ -221,7 +241,7 @@ namespace BluckurWallet.ServiceLayer
                 day = new DateTime(day.Year, day.Month, day.Day);
                 var nextDay = day.AddDays(1).AddSeconds(-1);
                 
-                string url = string.Format(address + endpoints["blocksByPeriod"],
+                string url = string.Format(Address + endpoints["blocksByPeriod"],
                     day.ToUnix(),
                     nextDay.ToUnix()
                 );
@@ -262,7 +282,7 @@ namespace BluckurWallet.ServiceLayer
             {
                 long unixFrom = from.ToUnix();
                 long unixTo = to.ToUnix();
-                string url = string.Format(address + endpoints["blocksByPeriod"],
+                string url = string.Format(Address + endpoints["blocksByPeriod"],
                     unixFrom,
                     unixTo
                 );
@@ -294,7 +314,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["blocksByWallet"],
+                string url = string.Format(Address + endpoints["blocksByWallet"],
                     walletKey
                 );
 
@@ -325,7 +345,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["transactionsWithWallet"],
+                string url = string.Format(Address + endpoints["transactionsWithWallet"],
                     walletKey
                 );
 
@@ -356,7 +376,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["transactionsFromToWallet"],
+                string url = string.Format(Address + endpoints["transactionsFromToWallet"],
                     fromWalletKey,
                     toWalletKey
                 );
@@ -388,7 +408,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["transactionsFromWallet"],
+                string url = string.Format(Address + endpoints["transactionsFromWallet"],
                     fromWalletKey
                 );
 
@@ -419,7 +439,7 @@ namespace BluckurWallet.ServiceLayer
         {
             try
             {
-                string url = string.Format(address + endpoints["transactionsToWallet"],
+                string url = string.Format(Address + endpoints["transactionsToWallet"],
                     toWalletKey
                 );
 
@@ -451,7 +471,7 @@ namespace BluckurWallet.ServiceLayer
             try
             {
                 long unix = from.ToUnix();
-                string url = string.Format(address + endpoints["transactionsByDate"],
+                string url = string.Format(Address + endpoints["transactionsByDate"],
                     unix
                 );
 
@@ -485,7 +505,7 @@ namespace BluckurWallet.ServiceLayer
                 long unixFrom = from.ToUnix(),
                     unixto = to.ToUnix();
 
-                string url = string.Format(address + endpoints["transactionsByPeriod"],
+                string url = string.Format(Address + endpoints["transactionsByPeriod"],
                     unixFrom,
                     unixto
                 );
@@ -519,7 +539,7 @@ namespace BluckurWallet.ServiceLayer
             {
                 string sAmount = amount.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
 
-                string url = string.Format(address + endpoints["transactionsByAmount"],
+                string url = string.Format(Address + endpoints["transactionsByAmount"],
                     sAmount
                 );
 
@@ -553,7 +573,7 @@ namespace BluckurWallet.ServiceLayer
                 string sMinimum = minimum.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
                     sMaximum = maximum.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
 
-                string url = string.Format(address + endpoints["transactionsWithinAmount"],
+                string url = string.Format(Address + endpoints["transactionsWithinAmount"],
                     sMinimum,
                     sMaximum
                 );

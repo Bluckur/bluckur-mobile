@@ -9,12 +9,26 @@
                 </StackLayout>
             </Grid>
             <Grid Margin="0, 15">
-                <Label Text="Private Key: " Grid.Column="0" Grid.Row="0"></Label>
-                <Entry x:Name="entPrivateKey" Placeholder="1234567890" Grid.Column="1" Grid.Row="0"></Entry>
-                <Label Text="Public Key: " Grid.Column="0" Grid.Row="1"></Label>
-                <Entry x:Name="entPublicKey" Placeholder="1234567890" Grid.Column="1" Grid.Row="1"></Entry>
-                <Label Text="Quiz Server IP: " Grid.Column="0" Grid.Row="2"></Label>
-                <Entry x:Name="entQuizServerIp" Placeholder="0.0.0.0" Grid.Column="1" Grid.Row="2"></Entry>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Private Key: "
+                    Grid.Column="0" Grid.Row="0"
+                    HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                <Entry x:Name="entPrivateKey" Placeholder="1234567890" Grid.Column="1" Grid.Row="0"/>
+                <Label Text="Public Key: "
+                       Grid.Column="0" Grid.Row="1"
+                       HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                <Entry x:Name="entPublicKey" Placeholder="1234567890" Grid.Column="1" Grid.Row="1"/>
+                <Label Text="Quiz Server IP: "
+                       Grid.Column="0" Grid.Row="2"
+                       HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                <Entry x:Name="entQuizServerIp" Placeholder="0.0.0.0" Grid.Column="1" Grid.Row="2"/>
+                <Label Text="Explorer Server: "
+                       Grid.Column="0" Grid.Row="3"
+                       HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                <Entry x:Name="entExplorerServer" Placeholder="0.0.0.0" Grid.Column="1" Grid.Row="3"/>
             </Grid>
             <Button Text="Save data" Clicked="btnSaveData_Click" TextColor="White" BackgroundColor="#e88506"></Button>
         </StackLayout>
