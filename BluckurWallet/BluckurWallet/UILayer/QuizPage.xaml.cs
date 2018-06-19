@@ -32,10 +32,9 @@ namespace BluckurWallet.UILayer
         /// </summary>
         private async void getStoredValues()
 		{
-            string defaultIp = "10.10.100.50:8080";
+            string defaultIp = "84.29.78.31:80";
 
 			publicKey = string.Empty;
-            baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
 
             try
             {
@@ -60,7 +59,7 @@ namespace BluckurWallet.UILayer
 					quizServerIp = defaultIp;
 				}
 
-				baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", defaultIp));
+                baseUrl = new Uri(string.Format("http://{0}/QuizApp/api/Rest/", quizServerIp));
             }
             catch (Exception ex)
             {
@@ -75,20 +74,6 @@ namespace BluckurWallet.UILayer
 				RestResponse response = await restConsumer.GetAsync(new Uri(baseUrl, "getQuestion"));
 
 				JObject json = response.JsonBody;
-
-				/*JObject answersArray = new JObject(
-					new JProperty("text2", "2"),
-					new JProperty("text3", "3"),
-					new JProperty("text4", "4"),
-                    new JProperty("text5", "5")
-				);
-
-				JObject json = new JObject(
-					new JProperty("id", 1),
-					new JProperty("text", "1+1="),
-					new JProperty("weight", 100),
-					new JProperty("answers", answersArray)
-			    );*/
 
 				QuizQuestion question = json.ToObject<QuizQuestion>();
 				currentQuestion = question;
@@ -132,13 +117,6 @@ namespace BluckurWallet.UILayer
                 RestResponse response = await restConsumer.GetAsync(new Uri(baseUrl, string.Format("isAnswerCorrect/{0}/{1}/{2}", currentQuestion.Id, answer, publicKey)));
 
                 JObject json = response.JsonBody;
-
-                /*JObject json = new JObject(
-                    new JProperty("id", 12),
-                    new JProperty("correct", false),
-                    new JProperty("correctAnswer", 2),
-                    new JProperty("secret", "afcbcedabcdadbecabedaabcbdeabcbbedabbadbcbadebadcbbfffaabc")
-                );*/
 
                 QuizReply reply = json.ToObject<QuizReply>();
 

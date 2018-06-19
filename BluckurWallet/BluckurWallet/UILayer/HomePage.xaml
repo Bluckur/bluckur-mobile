@@ -14,17 +14,9 @@
         </ContentPage.Content>
     </ContentPage>
 
-    <ContentPage Title="Explorer" Icon="ic_explorer.png">
-        <ContentPage.Content>
-            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="TODO"></Label>
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
-    
-    <local:ShowPage Title="Shop" Icon="ic_shop.png"/>
+    <local:BlockchainExplorerPage Title="Explorer" Icon="ic_explorer.png"/>
 
+    <local:ShopPage Title="Shop" Icon="ic_shop.png"/>
+	
     <local:HelpPage Title="Help" Icon="ic_help.png"/>
-    
-
 </TabbedPage>
